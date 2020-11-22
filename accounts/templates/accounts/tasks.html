@@ -1,0 +1,161 @@
+{% extends 'accounts/templates/base.html' %}
+
+{% block title %}
+    Tasks
+{% endblock %}
+
+{% block SectionTitle %}
+    Tasks
+{% endblock %}
+
+{% block addButton %}
+    <a href="{% url 'task_creation' %}"
+       class="d-none d-sm-inline-block btn btn-sm btn-green shadow-sm font-weight-bold text-gray-100">Add Task
+        <i
+                class="fas fa-plus fa-sm text-gray-100 ml-1"></i></a>
+{% endblock %}
+
+{% block content %}
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- New -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                New Tasks
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold ">{{ new }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Open Tasks
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold ">{{ open }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Completed Tasks
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold ">{{ completed }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Suspended Tasks
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold ">{{ suspended }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Row -->
+
+    <div class="row">
+
+        <!-- Tables -->
+        <div class="col-xl-12 ">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-green">Task List</h6>
+                    <div class="dropdown no-arrow">
+{#                        <form class="form-inline mr-auto w-100 navbar-search">#}
+{#                            <div class="input-group">#}
+{#                                <input type="text" class="form-control bg-light border-0 small"#}
+{#                                       placeholder="Search for..." aria-label="Search"#}
+{#                                       aria-describedby="basic-addon2">#}
+{#                                <div class="input-group-append">#}
+{#                                    <button class="btn btn-green" type="submit" >#}
+{#                                        <i class="fas fa-search fa-sm text-gray-100"></i>#}
+{#                                    </button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </form>#}
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <table class="table-curved" id="dataTable" style="width: 100%" cellspacing="0">
+                        <thead>
+                        <tr class="table-row-header-custom">
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Project</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in tasks %}
+                            <tr class="{{ i.get_status_display }} clickable-row" data-href='{{ i.id }}'>
+                                <td>{{ i.title }}</td>
+                                <td>{{ i.get_status_display }}</td>
+                                <td>{{ i.get_priority_display }}</td>
+                                <td>{{ i.project }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
+
+{% endblock %}

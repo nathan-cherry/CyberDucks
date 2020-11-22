@@ -1,0 +1,47 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cyber Ducks - Developer Dash</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/sign-in/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    {% include 'accounts/includes/stylesheets.html' %}
+
+</head>
+
+<body class="text-center bg-dark-theme">
+<form class="form-signin" method="POST" action="">
+    <img class="mb-4" src="{% static 'accounts/green_logo.png' %}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal text-light">Developer Dash</h1>
+    {% csrf_token %}
+    {{ form.username }}
+    {{ form.first_name }}
+    {{ form.last_name }}
+    {{ form.email }}
+    {{ form.password1 }}
+    {{ form.password2 }}
+    {% for error_field, error_message in form.errors.items %}
+        <div class="alert alert-danger" role="alert" style="text-align: left">
+            {{ error_message|striptags }}
+        </div>
+    {% endfor %}
+    <input class="mt-3 btn btn-lg btn-green btn-block" type="submit" name="CreateAccount">
+    <a href="{% url 'login' %}" class="green-link mt-2">Already have an account?</a>
+</form>
+
+
+<div style="background-color: #383838; width: 100%; bottom: 0; position:fixed">
+    <p class="mt-2 mb-2 text-muted">Copyright &copy; Cyber Ducks 2020</p>
+</div>
+</body>
+</html>

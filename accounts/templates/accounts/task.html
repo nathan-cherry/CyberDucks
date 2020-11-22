@@ -1,0 +1,170 @@
+{% extends 'accounts/templates/base.html' %}
+
+{% block title %}
+    Tasks
+{% endblock %}
+
+{% block SectionTitle %}
+    Tasks
+{% endblock %}
+
+{% block addButton %}
+    <div>
+        <a href='{% url 'tasks' %}'
+           class="d-none d-sm-inline-block btn btn-sm btn-green shadow-sm font-weight-bold text-gray-100"><i
+                class="fas fa-arrow-left fa-sm text-gray-100 ml-1"></i> Back</a>
+        <a href='{% url 'update_task' task.id %}'
+           class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm font-weight-bold text-gray-100">Edit
+            <i
+                    class="fas fa-edit fa-sm text-gray-100 ml-1"></i></a>
+        <a href='#' data-toggle="modal" data-target="#deleteModal"
+           class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm font-weight-bold text-gray-100">Delete
+            <i
+                    class="fas fa-trash fa-sm text-gray-100 ml-1"></i></a>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Content Row -->
+
+    <div class="row">
+
+        <!-- Task -->
+        <div class="col-xl-8 col-lg-7" style="height: 75vh">
+            <div class="card shadow mb-4" style="height: 100%;">
+                <!-- Card Header - Dropdown -->
+                <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-green">{{ task.title }}</h6>
+                    <div class="dropdown no-arrow">
+
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body" style="overflow-y: scroll">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Title</label>
+                                <input disabled type="text" class="form-control" id="inputEmail4"
+                                       value="{{ task.title }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Project</label>
+                                <input disabled type="text" class="form-control" id="inputPassword4"
+                                       value="{{ task.project }}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="exampleFormControlTextarea1">Description</label>
+                                <textarea disabled class="form-control" id="exampleFormControlTextarea1"
+                                          rows="3">{{ task.description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputState2">Start Date</label>
+                                <input disabled type="datetime-local" class="form-control" id="inputState2"
+                                       value="{{ task.start_date }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputState3">End Date</label>
+                                <input disabled type="datetime-local" class="form-control" id="inputState3"
+                                       value="{{ task.end_date }}">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputState">State</label>
+                                <select disabled id="inputState" class="form-control">
+                                    <option selected>{{ task.get_status_display }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Priority</label>
+                                <select disabled id="inputState" class="form-control">
+                                    <option selected>{{ task.get_priority_display }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">Assigned to</label>
+                                <input disabled type="text" class="form-control" id="inputCity"
+                                       value="{{ task.assigned_to }}">
+                            </div>
+                        </div>
+                        <button disabled type="submit" class="btn btn-primary disabled">Save</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="col-xl-4 col-lg-5" style="height: 75vh">
+            <div class="card shadow mb-4" style="height: 100%">
+                <!-- Card Header - Dropdown -->
+                <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-green">Notes</h6>
+                    <div class="dropdown no-arrow">
+
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body" style="overflow-y: scroll">
+                    {% for note in notes %}
+                        <div class="alert alert-info" role="alert">
+                            <h5 class="alert-heading">{{ note.title }}</h5>
+                            <p>{{ note.note }}</p>
+                            <form action="{% url 'delete_note' note.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit"
+                                       class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm font-weight-bold text-gray-100"
+                                       value="Delete">
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="border-radius: 20px">
+                <div class="modal-header bg-dark-secondary"
+                     style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                    <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-dark-theme">
+                    Select "Delete" below to verify your decision.
+                </div>
+                <form action="{% url 'delete_task' task.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-footer bg-dark-theme"
+                         style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-outline-danger" name="Delete">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block AdditionalScripts %}
+
+{% endblock %}

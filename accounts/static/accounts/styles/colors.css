@@ -1,0 +1,68 @@
+.bg-dark-theme{
+    /*background-color: #212121;*/
+    background-color: #3a3b45;
+}
+
+.bg-dark-secondary{
+    /*background-color: #383838;*/
+    background-color: #2d2e33;
+}
+
+.text-green{
+    color: #03c9b5;
+}
+.sidebar-header{
+  color: #03c9b5;
+  height: 4.375rem;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  z-index: 1;
+}
+
+
+.green-link{
+        color: #03c9b5;
+}
+
+.green-link:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.btn-green{
+    background-color: #03c9b5;
+}
+
+.btn-green:hover{
+    background-color: #03b09f;
+}
+
+.custom_field{
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  border-top: none;
+  border-bottom: 1px solid #DDD;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.39), 0 -1px 1px #FFF, 0 1px 0 #FFF;
+}
+
+.image-background{
+    background-color: #2e2f37;
+}
+
+.fg-white{
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.hideMe{
+    display: none !important;
+}
+
+#logo{
+    width:25%;
+}
