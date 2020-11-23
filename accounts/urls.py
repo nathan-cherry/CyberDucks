@@ -18,7 +18,7 @@ urlpatterns = [
     path('tasks/<str:task_id>/', views.task, name='task_view'),
 
     # Notes
-    path('notes/create/', views.createTask, name='note_creation'),
+    path('notes/create/<str:task_id>/', views.createNote, name='note_creation'),
     path('notes/delete/<str:note_id>', views.deleteNote, name='delete_note'),
 
     # Projects

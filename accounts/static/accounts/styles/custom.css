@@ -1,114 +1,130 @@
-.table-row-custom{
+.table-row-custom {
 
 }
 
-.table-row-header-custom{
+.table-row-header-custom {
 
 }
 
 .table-curved {
-  /*border-collapse: collapse;*/
-  margin-left: 10px;
-  border-collapse:separate;
-  border-spacing:0 5px;
+    /*border-collapse: collapse;*/
+    margin-left: 10px;
+    border-collapse: separate;
+    border-spacing: 0 5px;
 }
+
 .table-curved th {
-  background-color: rgba(0,0,0,0.25);
-  padding: 3px 10px;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 3px 10px;
 }
 
 .table-curved td {
-  position: relative;
-  background-color: rgba(0,0,0,0.1);
-  padding: 6px 0 6px 10px;
-  /*border-bottom: 2px solid white;*/
-  /*border-top: 2px solid white;*/
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 6px 0 6px 10px;
+    /*border-bottom: 2px solid white;*/
+    /*border-top: 2px solid white;*/
 }
+
 .table-curved td:first-child:before {
-  content: '';
-  position: absolute;
-  border-radius: 1rem 0 0 1rem;
-  width: 12px;
-  height: 100%;
-  left: -12px;
-  top: 0px;
+    content: '';
+    position: absolute;
+    border-radius: 1rem 0 0 1rem;
+    width: 12px;
+    height: 100%;
+    left: -12px;
+    top: 0px;
 }
 
 .table-curved td:last-child {
-  border-radius: 0 5px 5px 0;
+    border-radius: 0 5px 5px 0;
 }
 
 .table-curved tr:hover td {
-  background-color: rgba(0,0,0,0.20);
-  cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.20);
+    cursor: pointer;
 }
 
 .table-curved tr.New td:first-child:before {
-  background-color: #36b9cc;
+    background-color: #36b9cc;
 }
+
 .table-curved tr.New td {
-  border-top: 1px solid #36b9cc;
-  border-bottom: 1px solid #36b9cc;
+    border-top: 1px solid #36b9cc;
+    border-bottom: 1px solid #36b9cc;
 }
+
 .table-curved tr.New td:first-child {
-  border-left: 1px solid #36b9cc;
+    border-left: 1px solid #36b9cc;
 }
+
 .table-curved tr.New td:last-child {
-  border-right: 1px solid #36b9cc;
+    border-right: 1px solid #36b9cc;
 }
 
 .table-curved tr.Open td:first-child:before {
-  background-color: #f6c23e;
+    background-color: #f6c23e;
 }
+
 .table-curved tr.Open td {
-  border-top: 1px solid #f6c23e;
-  border-bottom: 1px solid #f6c23e;
+    border-top: 1px solid #f6c23e;
+    border-bottom: 1px solid #f6c23e;
 }
+
 .table-curved tr.Open td:first-child {
-  border-left: 1px solid #f6c23e;
+    border-left: 1px solid #f6c23e;
 }
+
 .table-curved tr.Open td:last-child {
-  border-right: 1px solid #f6c23e;
+    border-right: 1px solid #f6c23e;
 }
+
 .table-curved tr.Completed td:first-child:before {
-  background-color: #1cc88a;
+    background-color: #1cc88a;
 }
+
 .table-curved tr.Completed td {
-  border-top: 1px solid #1cc88a;
-  border-bottom: 1px solid #1cc88a;
+    border-top: 1px solid #1cc88a;
+    border-bottom: 1px solid #1cc88a;
 }
+
 .table-curved tr.Completed td:first-child {
-  border-left: 1px solid #1cc88a;
+    border-left: 1px solid #1cc88a;
 }
+
 .table-curved tr.Completed td:last-child {
-  border-right: 1px solid #1cc88a;
+    border-right: 1px solid #1cc88a;
 }
+
 .table-curved tr.Suspended td:first-child:before {
-  background-color: #e74a3b;
+    background-color: #e74a3b;
 }
+
 .table-curved tr.Suspended td {
-  border-top: 1px solid #e74a3b;
-  border-bottom: 1px solid #e74a3b;
+    border-top: 1px solid #e74a3b;
+    border-bottom: 1px solid #e74a3b;
 }
+
 .table-curved tr.Suspended td:first-child {
-  border-left: 1px solid #e74a3b;
+    border-left: 1px solid #e74a3b;
 }
+
 .table-curved tr.Suspended td:last-child {
-  border-right: 1px solid #e74a3b;
+    border-right: 1px solid #e74a3b;
 }
 
 .table-curved td:first-child {
-  width: 55%;
+    width: 55%;
 }
 
 .table-curved td:nth-child(2) {
-  width: 10%;
+    width: 10%;
 }
 
 .table-curved td:nth-child(3) {
-  width: 10%;
+    width: 10%;
 }
 
 .table-curved td:nth-child(4) {
-  width: 25%;
+    width: 25%;
 }

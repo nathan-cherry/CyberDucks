@@ -10,9 +10,13 @@
 
 {% block addButton %}
     <div>
-        <a href='{% url 'task_view' id%}'
-           class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm font-weight-bold text-gray-100"><i
+        <a href='{% url 'tasks' %}'
+           class="d-none d-sm-inline-block btn btn-sm btn-green shadow-sm font-weight-bold text-gray-100"><i
                 class="fas fa-arrow-left fa-sm text-gray-100 ml-1"></i> Back</a>
+        <a href='{% url 'task_view' id %}'
+           class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm font-weight-bold text-gray-100">Cancel Edit
+            <i
+                    class="fas fa-edit fa-sm text-gray-100 ml-1"></i></a>
     </div>
 {% endblock %}
 
@@ -20,27 +24,147 @@
 
 
 
-    <!-- Content Row -->
+    {#    <!-- Content Row -->#}
+    {##}
+    {#    <div class="row">#}
+    {##}
+    {#        <!-- Tables -->#}
+    {#        <div class="col-xl-12 ">#}
+    {#            <div class="card shadow mb-4">#}
+    {#                <!-- Card Header - Dropdown -->#}
+    {#                <div#}
+    {#                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">#}
+    {#                    <h6 class="m-0 font-weight-bold text-green">Update Task</h6>#}
+    {#                </div>#}
+    {#                <!-- Card Body -->#}
+    {#                <div class="card-body">#}
+    {#                    <form action="" method="POST" class="form django_form">#}
+    {#                        {% csrf_token %}#}
+    {#                        {% crispy form %}#}
+    {#                    </form>#}
+    {#                </div>#}
+    {##}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+
 
     <div class="row">
 
-        <!-- Tables -->
-        <div class="col-xl-12 ">
-            <div class="card shadow mb-4">
+        <!-- Task -->
+        <div class="col-xl-8 col-lg-7" style="height: 75vh">
+            <div class="card shadow mb-4" style="height: 100%;">
                 <!-- Card Header - Dropdown -->
                 <div
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-green">Update Task</h6>
+                    <h6 class="m-0 font-weight-bold text-green">{{ task.title }}</h6>
+                    <div class="dropdown no-arrow">
+
+                    </div>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
+                <div class="card-body" style="overflow-y: scroll">
                     <form action="" method="POST" class="form django_form">
                         {% csrf_token %}
-                        {% crispy form %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Title</label>
+                                {{ form.title }}
+                                {#                                <input disabled type="text" class="form-control" id="inputEmail4"#}
+                                {#                                       value="{{ task.title }}">#}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Project</label>
+                                {{ form.project }}
+                                {#                                <input disabled type="text" class="form-control" id="inputPassword4"#}
+                                {#                                       value="{{ task.project }}">#}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="exampleFormControlTextarea1">Description</label>
+                                {{ form.description }}
+                                {#                                <textarea disabled class="form-control" id="exampleFormControlTextarea1"#}
+                                {#                                          rows="3">{{ task.description }}</textarea>#}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputState2">Start Date</label>
+                                                                {{ form.start_date }}
+{#                                <input disabled type="datetime-local" class="form-control" id="inputState2"#}
+{#                                       value="{{ task.start_date }}">#}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputState3">End Date</label>
+                                                                {{ form.end_date }}
+{#                                <input disabled type="datetime-local" class="form-control" id="inputState3"#}
+{#                                       value="{{ task.end_date }}">#}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputState">State</label>
+                                                                {{ form.status }}
+{#                                <select disabled id="inputState" class="form-control">#}
+{#                                    <option selected>{{ task.get_status_display }}</option>#}
+{#                                </select>#}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Priority</label>
+                                                                {{ form.priority }}
+{#                                <select disabled id="inputState" class="form-control">#}
+{#                                    <option selected>{{ task.get_priority_display }}</option>#}
+{#                                </select>#}
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputCity">Assigned to</label>
+                                <input disabled type="text" class="form-control" id="inputCity"
+                                       value="{{ task.assigned_to }}">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>
 
             </div>
         </div>
+
+        <!-- Notes -->
+        <div class="col-xl-4 col-lg-5" style="height: 75vh">
+            <div class="card shadow mb-4" style="height: 100%">
+                <!-- Card Header - Dropdown -->
+                <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-green">Notes</h6>
+                    <div class="dropdown no-arrow">
+                        <a href='#' data-toggle="modal" data-target="#NoteModal"
+                           class="d-none d-sm-inline-block btn btn-sm btn-green shadow-sm font-weight-bold text-gray-100 disabled">Create
+                            <i
+                                    class="fas fa-plus fa-sm text-gray-100 ml-1"></i></a>
+
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body" style="overflow-y: scroll">
+                    {% for note in notes %}
+                        <div class="alert alert-info" role="alert">
+                            <h5 class="alert-heading">{{ note.title }}</h5>
+                            <p>{{ note.note }}</p>
+                            <form action="{% url 'delete_note' note.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit"
+                                       class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm font-weight-bold text-gray-100"
+                                       value="Delete" disabled>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
+
 {% endblock %}

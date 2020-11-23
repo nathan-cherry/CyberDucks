@@ -94,7 +94,7 @@
                                        value="{{ task.assigned_to }}">
                             </div>
                         </div>
-                        <button disabled type="submit" class="btn btn-primary disabled">Save</button>
+{#                        <button disabled type="submit" class="btn btn-primary disabled">Save</button>#}
                     </form>
                 </div>
 
@@ -109,6 +109,10 @@
                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-green">Notes</h6>
                     <div class="dropdown no-arrow">
+                        <a href='#' data-toggle="modal" data-target="#NoteModal"
+                           class="d-none d-sm-inline-block btn btn-sm btn-green shadow-sm font-weight-bold text-gray-100">Create
+                            <i
+                                    class="fas fa-plus fa-sm text-gray-100 ml-1"></i></a>
 
                     </div>
                 </div>
@@ -158,6 +162,34 @@
                         <input type="submit" class="btn btn-outline-danger" name="Delete">
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="NoteModal" tabindex="-1" role="dialog" aria-labelledby="NoteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="border-radius: 20px">
+                <div class="modal-header bg-dark-secondary"
+                     style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                    <h5 class="modal-title" id="NoteModalLabel">Create Note</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{% url 'note_creation' task.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body bg-dark-theme">
+                        {{ form.title }}
+                        {{ form.note }}
+                    </div>
+                    <div class="modal-footer bg-dark-theme"
+                         style="border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-outline-success" name="Delete">
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

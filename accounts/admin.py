@@ -13,7 +13,7 @@ class ProjectAdmin(admin.ModelAdmin):
 
 
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ('title', 'creator')
+    list_display = ('title', 'task', 'creator')
 
 
 admin.site.register(Task, TaskAdmin)

@@ -73,12 +73,14 @@ def tasks(request):
 
 @login_required(login_url='login')
 def task(request, task_id):
+    form = NoteForm()
     task_obj = Task.objects.get(id__exact=task_id)
     notes = Note.objects.filter(task__exact=task_obj)
 
     context = {
         'task': task_obj,
         'notes': notes,
+        'form': form,
     }
     if request.user == task_obj.assigned_to:
         return render(request, 'accounts/task.html', context)
@@ -106,10 +108,13 @@ def createTask(request):
 @login_required(login_url='login')
 def updateTask(request, task_id):
     task_obj = Task.objects.get(id=task_id)
+    notes = Note.objects.filter(task__exact=task_obj)
     form = TaskForm(instance=task_obj)
     context ={
         'form': form,
-        'id': task_id
+        'id': task_id,
+        'notes': notes,
+        'task': task_obj
     }
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task_obj)
@@ -142,3 +147,27 @@ def deleteNote(request, note_id):
     if request.method == "POST":
         note_obj.delete()
     return redirect('/tasks/' + task_id)
+
+
+@login_required(login_url='login')
+def createNote(request, task_id):
+
+    form = NoteForm()
+    task_obj = Task.objects.get(id__exact=task_id)
+    notes = Note.objects.filter(task__exact=task_obj)
+
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            submit = form.save(commit=False)
+            submit.creator = request.user
+            submit.task = task_obj
+            submit.save()
+            return redirect('/tasks/' + task_id)
+
+    context = {
+        'form': form,
+        'notes': notes,
+        'task': task_obj,
+    }
+    return render(request, 'accounts/task.html', context)
