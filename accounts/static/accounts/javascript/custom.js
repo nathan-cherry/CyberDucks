@@ -12,7 +12,6 @@ function logoToggle() {
 
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
-        console.log("Clicked");
         window.location = $(this).data("href");
     });
 });

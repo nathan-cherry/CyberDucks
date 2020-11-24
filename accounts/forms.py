@@ -77,3 +77,70 @@ class CreateUserForm(UserCreationForm):
             attrs={'class': 'mb-2 form-control', 'placeholder': 'Password'})
         self.fields['password2'].widget = forms.PasswordInput(
             attrs={'class': 'mb-2 form-control', 'placeholder': 'Confirm Password'})
+
+
+class ProjectTaskForm(ModelForm):
+    class Meta:
+        model = Task
+        exclude = [
+            'assigned_to',
+            'project'
+        ]
+        widgets = {
+            'start_date': DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+            'end_date': DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '3'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'priority': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class ProjectForm(ModelForm):
+    class Meta:
+        model = Project
+        exclude = [
+            'assigned_to',
+        ]
+        widgets = {
+            'start_date': DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+            'end_date': DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '3'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'client_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'client_email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'repo': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+class ProjectCreateForm(ModelForm):
+    class Meta:
+        model = Project
+        exclude = [
+            'assigned_to',
+        ]
+        widgets = {
+            'start_date': DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+            'end_date': DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '3'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'client_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'client_email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'repo': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    helper = FormHelper()
+    helper.form_class = 'form-group'
+    helper.layout = Layout(
+        Field('title', css_class='form-control mt-2 mb-3'),
+        Field('description', rows="3", css_class='form-control mb-3', required=False),
+        Field('status', css_class='form-control mb-3'),
+        Field('start_date', css_class='form-control mb-3', required=False),
+        Field('end_date', css_class='form-control mb-3', required=False),
+        Field('client_name', css_class='form-control mb-3'),
+        Field('client_email', css_class='form-control mb-3', required=False),
+        Field('repo', css_class='form-control mb-3'),
+        Submit('submit', 'Submit', css_class='button white mt-3')
+    )

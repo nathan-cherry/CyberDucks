@@ -76,7 +76,6 @@ def task(request, task_id):
     form = NoteForm()
     task_obj = Task.objects.get(id__exact=task_id)
     notes = Note.objects.filter(task__exact=task_obj)
-
     context = {
         'task': task_obj,
         'notes': notes,
@@ -114,7 +113,7 @@ def updateTask(request, task_id):
         'form': form,
         'id': task_id,
         'notes': notes,
-        'task': task_obj
+        'task': task_obj,
     }
     if request.method == 'POST':
         form = TaskForm(request.POST, instance=task_obj)
@@ -171,3 +170,107 @@ def createNote(request, task_id):
         'task': task_obj,
     }
     return render(request, 'accounts/task.html', context)
+
+
+# Project
+@login_required(login_url='login')
+def projects(request):
+    project_list = Project.objects.filter(assigned_to__exact=request.user)
+    new_projects = project_list.filter(status__exact='NEW').count()
+    open_projects = project_list.filter(status__exact='OPN').count()
+    completed_projects = project_list.filter(status__exact='COM').count()
+    suspended_projects = project_list.filter(status__exact='SUS').count()
+
+    context = {
+        'projects': project_list,
+        'new': new_projects,
+        'open': open_projects,
+        'completed': completed_projects,
+        'suspended': suspended_projects,
+    }
+    return render(request, 'accounts/projects.html', context)
+
+
+@login_required(login_url='login')
+def project(request, project_id):
+    project_obj = Project.objects.get(id__exact=project_id)
+    tasks_list = Task.objects.filter(project__id__exact=project_id)
+    form = ProjectTaskForm()
+    labels = ['New', 'Open', 'Completed', 'Suspended']
+    data = [tasks_list.filter(status__exact='NEW').count(), tasks_list.filter(status__exact='OPN').count(),
+            tasks_list.filter(status__exact='COM').count(), tasks_list.filter(status__exact='SUS').count()]
+
+    context = {
+        'tasks': tasks_list,
+        'project': project_obj,
+        'form': form,
+        'labels': labels,
+        'data': data,
+    }
+    if request.user == project_obj.assigned_to:
+        return render(request, 'accounts/project.html', context)
+    else:
+        return render(request, 'accounts/error')
+
+
+@login_required(login_url='login')
+def createProject(request):
+    form = ProjectCreateForm()
+    if request.method == 'POST':
+        form = ProjectCreateForm(request.POST)
+        if form.is_valid():
+            submit = form.save(commit=False)
+            submit.assigned_to = request.user
+            submit.save()
+            return redirect('/projects/')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/forms/project.html', context)
+
+
+@login_required(login_url='login')
+def deleteProject(request, project_id):
+    project_obj = Project.objects.get(id=project_id)
+    if request.method == "POST":
+        project_obj.delete()
+        return redirect('/projects/')
+
+
+@login_required(login_url='login')
+def createProjectTask(request, project_id):
+    form = ProjectTaskForm()
+    if request.method == 'POST':
+        form = ProjectTaskForm(request.POST)
+        if form.is_valid():
+            submit = form.save(commit=False)
+            submit.project = Project.objects.get(id__exact=project_id)
+            submit.assigned_to = request.user
+            submit.save()
+            return redirect('/projects/' + project_id)
+
+
+@login_required(login_url='login')
+def updateProject(request, project_id):
+    project_obj = Project.objects.get(id=project_id)
+    form = ProjectForm(instance=project_obj)
+    task_list = Task.objects.filter(project__id__exact=project_id)
+    labels = ['New', 'Open', 'Completed', 'Suspended']
+    data = [task_list.filter(status__exact='NEW').count(), task_list.filter(status__exact='OPN').count(),
+            task_list.filter(status__exact='COM').count(), task_list.filter(status__exact='SUS').count()]
+    context ={
+        'form': form,
+        'id': project_id,
+        'tasks': task_list,
+        'project': project_obj,
+        'labels': labels,
+        'data': data,
+    }
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project_obj)
+        if form.is_valid():
+            submit = form.save(commit=False)
+            submit.save()
+            return redirect('/projects/' + project_id)
+    return render(request, 'accounts/forms/project_update.html', context)

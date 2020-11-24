@@ -1,0 +1,194 @@
+{% extends 'accounts/templates/base.html' %}
+
+{% block title %}
+    Projects
+{% endblock %}
+
+{% block SectionTitle %}
+    Projects
+{% endblock %}
+
+{% block addButton %}
+    <div>
+        <a href='{% url 'projects' %}'
+           class="d-none d-sm-inline-block btn btn-sm btn-green shadow-sm font-weight-bold text-gray-100"><i
+                class="fas fa-arrow-left fa-sm text-gray-100 ml-1"></i> Back</a>
+        <a href='{% url 'project_view' id %}'
+           class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm font-weight-bold text-gray-100">Cancel Edit
+            <i
+                    class="fas fa-edit fa-sm text-gray-100 ml-1"></i></a>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Content Row -->
+
+    <div class="row">
+
+        <!-- project -->
+        <div class="col-xl-8 col-lg-7" style="height: 65vh">
+            <div class="card shadow mb-4" style="height: 100%;">
+                <!-- Card Header - Dropdown -->
+                <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-green">{{ project.title }}</h6>
+                    <div class="dropdown no-arrow">
+
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body" style="overflow-y: scroll">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Title</label>
+                                {{ form.title }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputState">Status</label>
+                                {{ form.status }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="exampleFormControlTextarea1">Description</label>
+                                {{ form.description }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputState2">Start Date</label>
+                                {{ form.start_date }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputState3">End Date</label>
+                                {{ form.end_date }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputState2">Contact Name</label>
+                                {{ form.client_name }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputState">Contact Email</label>
+                                {{ form.client_email }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label for="repo">Repository</label>
+                                {{ form.repo }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-green font-weight-bold text-gray-100">Save</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="col-xl-4 col-lg-5" style="height: 65vh">
+            <div class="card shadow mb-4" style="height: 100%">
+                <!-- Card Header - Dropdown -->
+                <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-green">Project Completion</h6>
+                    <div class="dropdown no-arrow">
+
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body" style="overflow-y: scroll">
+                    <canvas id="pie-chart"
+                            style="margin:auto; position: absolute;top: 0;bottom: 0;left: 0;right: 0;"></canvas>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+    <br>
+    <div class="row">
+
+        <!-- Tables -->
+        <div class="col-xl-12 ">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-green">Task List</h6>
+                    <div class="dropdown no-arrow">
+                        <a href='#' data-toggle="modal" data-target="#TaskModal"
+                           class="disabled d-none d-sm-inline-block btn btn-sm btn-green shadow-sm font-weight-bold text-gray-100">Create
+                            <i
+                                    class="fas fa-plus fa-sm text-gray-100 ml-1"></i></a>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <table class="table-curved" id="dataTable" style="width: 100%" cellspacing="0">
+                        <thead>
+                        <tr class="table-row-header-custom">
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Priority</th>
+                            <th>Project</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in tasks %}
+                            <tr class="{{ i.get_status_display }} clickable-row" data-href='../../tasks/{{ i.id }}'>
+                                <td>{{ i.title }}</td>
+                                <td>{{ i.get_status_display }}</td>
+                                <td>{{ i.get_priority_display }}</td>
+                                <td>{{ i.project }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block AdditionalScripts %}
+    <script>
+
+        var config = {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: {{ data|safe }},
+                    backgroundColor: [
+                        '#36b9cc', '#f6c23e', '#1cc88a', '#e74a3b'
+                    ],
+                    label: 'Tasks'
+                }],
+                labels: {{ labels|safe }}
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    display: true,
+                    position: 'left',
+                    align: 'center'
+                }
+            }
+        };
+
+        window.onload = function () {
+            var ctx = document.getElementById('pie-chart').getContext('2d');
+            window.myPie = new Chart(ctx, config);
+        };
+
+    </script>
+{% endblock %}

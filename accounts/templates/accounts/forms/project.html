@@ -1,0 +1,44 @@
+{% extends 'accounts/templates/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Project Creation
+{% endblock %}
+
+{% block SectionTitle %}
+    Projects
+{% endblock %}
+
+{% block addButton %}
+    <div>
+        <a href='{% url 'projects' %}'
+           class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm font-weight-bold text-gray-100"><i
+                class="fas fa-arrow-left fa-sm text-gray-100 ml-1"></i> Back</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Content Row -->
+
+    <div class="row">
+
+        <!-- Tables -->
+        <div class="col-xl-12 ">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div
+                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-green">Create Project</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <form action="" method="POST" class="form django_form">
+                        {% csrf_token %}
+                        {% crispy form %}
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

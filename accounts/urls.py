@@ -22,9 +22,10 @@ urlpatterns = [
     path('notes/delete/<str:note_id>', views.deleteNote, name='delete_note'),
 
     # Projects
-    path('projects/', views.home, name='projects'),
-    path('projects/create/', views.home, name='projects_creation'),
-    path('projects/update/<str:project_id>', views.home, name='projects_task'),
-    path('projects/delete/<str:project_id>', views.home, name='projects_task'),
-    path('projects/<str:project_id>/', views.home, name='projects_view'),
+    path('projects/', views.projects, name='projects'),
+    path('projects/create/', views.createProject, name='project_creation'),
+    path('projects/createtask/<str:project_id>/', views.createProjectTask, name='project_task_creation'),
+    path('projects/update/<str:project_id>', views.updateProject, name='update_project'),
+    path('projects/delete/<str:project_id>', views.deleteProject, name='delete_project'),
+    path('projects/<str:project_id>/', views.project, name='project_view'),
 ]
