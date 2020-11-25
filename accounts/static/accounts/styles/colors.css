@@ -8,6 +8,10 @@
     background-color: #2d2e33;
 }
 
+.bg-green {
+  background-color: #03c9b5 !important;
+}
+
 .text-green{
     color: #03c9b5;
 }

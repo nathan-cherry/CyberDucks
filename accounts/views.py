@@ -5,12 +5,18 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from .queries import *
 
 
 # Authentication
 @login_required(login_url='login')
 def home(request):
-    context = {}
+    today_tasks = getTasksToday(request)
+    project_completion = projectCompletion(request)
+    context = {
+        'tasksToday': today_tasks,
+        'project_completion': project_completion,
+    }
     return render(request, 'accounts/index.html', context)
 
 
