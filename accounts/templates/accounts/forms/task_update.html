@@ -66,40 +66,36 @@
                 <div class="card-body" style="overflow-y: scroll">
                     <form action="" method="POST" class="form django_form">
                         {% csrf_token %}
+
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputEmail4">Title</label>
                                 {{ form.title }}
-                                {#                                <input disabled type="text" class="form-control" id="inputEmail4"#}
-                                {#                                       value="{{ task.title }}">#}
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputPassword4">Project</label>
                                 {{ form.project }}
-                                {#                                <input disabled type="text" class="form-control" id="inputPassword4"#}
-                                {#                                       value="{{ task.project }}">#}
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <label for="exampleFormControlTextarea1">Description</label>
                                 {{ form.description }}
-                                {#                                <textarea disabled class="form-control" id="exampleFormControlTextarea1"#}
-                                {#                                          rows="3">{{ task.description }}</textarea>#}
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputState2">Start Date</label>
-                                                                {{ form.start_date }}
-{#                                <input disabled type="datetime-local" class="form-control" id="inputState2"#}
-{#                                       value="{{ task.start_date }}">#}
+{#                                                                {{ form.start_date }}#}
+                                <input type="datetime-local" class="form-control" id="inputState2"
+                                       value="2018-06-12T19:30">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState3">End Date</label>
-                                                                {{ form.end_date }}
-{#                                <input disabled type="datetime-local" class="form-control" id="inputState3"#}
-{#                                       value="{{ task.end_date }}">#}
+{#                                                                {{ form.end_date }}#}
+                                <input type="datetime-local" class="form-control" id="inputState3"
+                                       value="{{ task.end_date }}">
+                                <p>{{ task.end_date }}</p>
                             </div>
                         </div>
                         <div class="form-row">

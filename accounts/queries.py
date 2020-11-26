@@ -23,11 +23,12 @@ def projectCompletion(request):
             percentage = round((completed / total_tasks) * 100)
         else:
             percentage = 0
-        project_percentage.append({
-            'project': project,
-            'total': total_tasks,
-            'completed': completed,
-            'percentage': percentage
-        })
+        if percentage != 100:
+            project_percentage.append({
+                'project': project,
+                'total': total_tasks,
+                'completed': completed,
+                'percentage': percentage
+            })
 
     return project_percentage
