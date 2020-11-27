@@ -61,3 +61,16 @@ class AccountCreationTestCase(TestCase):
         response = self.client.get('/logout/', follow=True)
         # Check that the user is not authenticated
         self.assertEqual(response.context['user'].is_authenticated, False)
+
+
+# Sean
+class NoteTestCase(TestCase):
+    def test_note_title(self):
+        test_user = User()
+        test_project = Project()
+        test_task = Task()
+
+        note1 = Note(title="Note1")
+        note2 = Note(title="Note2")
+        self.assertEqual(note1.title, 'Note1')
+        self.assertEqual(note2.title, 'Note2')
