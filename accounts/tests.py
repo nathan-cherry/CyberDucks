@@ -74,3 +74,11 @@ class NoteTestCase(TestCase):
         note2 = Note(title="Note2")
         self.assertEqual(note1.title, 'Note1')
         self.assertEqual(note2.title, 'Note2')
+
+# Sehaj
+class ProjectTestCase(TestCase):
+    def test_create_project(self):
+        temp_user = User()
+        test_project = Project(id=None, title='ProjectTest', description='testingForSehaj', status='NEW', start_date='', end_date='',
+                               client_name='SehajTest', client_email='khairas@uwindsor.ca', repo='testRepo', assigned_to=temp_user, date_created='')
+        self.assertEqual(test_project.title, 'ProjectTest')
