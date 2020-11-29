@@ -19,12 +19,26 @@ python manage.py test
 
 # Blair
 class TaskTestCase(TestCase):
+    def setUp(self):
+        self.test_user = User()
+        self.test_project = Project()
+        self.test_task = Task(id=None, title='tester', description='test', status='OPN', start_date='', end_date='',
+                                assigned_to=self.test_user, date_created='', priority='LW', project=self.test_project)
+
     def test_create_task(self):
-        test_user = User()
-        test_project = Project()
-        test_task = Task(id=None, title='tester', description='test', status='OPN', start_date='', end_date='',
-                         assigned_to=test_user, date_created='', priority='LW', project=test_project)
-        self.assertEqual(test_task.title, 'tester')
+        self.assertIsInstance(self.test_task, Task)
+
+    def test_task_title(self):
+        self.assertEqual(self.test_task.title, 'tester')
+
+    def test_task_description(self):
+        self.assertEqual(self.test_task.description, 'test')
+
+    def test_task_assigned_to(self):
+        self.assertEqual(self.test_task.assigned_to, self.test_user)
+
+    def test_task_project(self):
+        self.assertEqual(self.test_task.project, self.test_project)
 
 
 # Nathan
@@ -74,3 +88,11 @@ class NoteTestCase(TestCase):
         note2 = Note(title="Note2")
         self.assertEqual(note1.title, 'Note1')
         self.assertEqual(note2.title, 'Note2')
+
+# Sehaj
+class ProjectTestCase(TestCase):
+    def test_create_project(self):
+        temp_user = User()
+        test_project = Project(id=None, title='ProjectTest', description='testingForSehaj', status='NEW', start_date='', end_date='',
+                               client_name='SehajTest', client_email='khairas@uwindsor.ca', repo='testRepo', assigned_to=temp_user, date_created='')
+        self.assertEqual(test_project.title, 'ProjectTest')
