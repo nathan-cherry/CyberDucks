@@ -23,32 +23,6 @@
 {% block content %}
 
 
-
-    {#    <!-- Content Row -->#}
-    {##}
-    {#    <div class="row">#}
-    {##}
-    {#        <!-- Tables -->#}
-    {#        <div class="col-xl-12 ">#}
-    {#            <div class="card shadow mb-4">#}
-    {#                <!-- Card Header - Dropdown -->#}
-    {#                <div#}
-    {#                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">#}
-    {#                    <h6 class="m-0 font-weight-bold text-green">Update Task</h6>#}
-    {#                </div>#}
-    {#                <!-- Card Body -->#}
-    {#                <div class="card-body">#}
-    {#                    <form action="" method="POST" class="form django_form">#}
-    {#                        {% csrf_token %}#}
-    {#                        {% crispy form %}#}
-    {#                    </form>#}
-    {#                </div>#}
-    {##}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-
-
     <div class="row">
 
         <!-- Task -->
@@ -64,7 +38,7 @@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body" style="overflow-y: scroll">
-                    <form action="" method="POST" class="form django_form">
+                    <form action="" method="POST" >
                         {% csrf_token %}
 
                         <div class="form-row">
@@ -86,16 +60,15 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputState2">Start Date</label>
-{#                                                                {{ form.start_date }}#}
-                                <input type="datetime-local" class="form-control" id="inputState2"
-                                       value="2018-06-12T19:30">
+                                                                {{ form.start_date }}
+{#                                <input type="datetime-local" class="form-control" id="inputState2"#}
+{#                                       value="{{ task.start_date }}">#}
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputState3">End Date</label>
-{#                                                                {{ form.end_date }}#}
-                                <input type="datetime-local" class="form-control" id="inputState3"
-                                       value="{{ task.end_date }}">
-                                <p>{{ task.end_date }}</p>
+                                                                {{ form.end_date }}
+{#                                <input type="datetime-local" class="form-control" id="inputState3"#}
+{#                                       value="{{ task.end_date }}">#}
                             </div>
                         </div>
                         <div class="form-row">

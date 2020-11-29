@@ -112,11 +112,12 @@ def createTask(request):
 
 @login_required(login_url='login')
 def updateTask(request, task_id):
+    print("\n\n\nCalled updateTask\n\n")
     task_obj = Task.objects.get(id=task_id)
     notes = Note.objects.filter(task__exact=task_obj)
-    form = TaskForm(instance=task_obj)
-    context ={
-        'form': form,
+    form1 = TaskForm(instance=task_obj)
+    context = {
+        'form': form1,
         'id': task_id,
         'notes': notes,
         'task': task_obj,
